@@ -1,70 +1,168 @@
-# Getting Started with Create React App
+# Daily Topics Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A React application for displaying daily educational topics for elementary students.
 
-## Available Scripts
+## 🚀 Features
 
-In the project directory, you can run:
+- **Daily Topic Display**: Shows educational content with topic title, paragraph, and grammar exercises with answer key
+- **Video Integration**: Embeds educational videos from the API response
+- **About Section**: Explains the tool's purpose and mission
+- **Contact Form**: Email contact form for feedback and questions
+- **Kid-Friendly UI**: Colorful, engaging design perfect for 4th-grade students
+- **Responsive Design**: Works on desktop, tablet, and mobile devices
+- **Error Handling**: Graceful error handling with retry functionality
+- **Loading States**: Smooth loading animations
+- **API Integration**: Connects to FastAPI backend at localhost:8000
 
-### `npm start`
+## 📁 Project Structure
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```
+src/
+├── components/
+│   ├── common/          # Reusable UI components
+│   └── features/        # Feature-specific components
+│       ├── DailyTopic.js
+│       └── DailyTopic.css
+├── services/
+│   └── api.js          # API communication layer
+├── hooks/
+│   └── useDailyTopic.js # Custom hook for topic data
+├── utils/
+│   └── helpers.js      # Utility functions
+├── styles/             # Global styles
+├── assets/             # Images, icons, etc.
+└── App.js              # Main app component
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🛠️ Setup & Installation
 
-### `npm test`
+1. **Install Dependencies**:
+   ```bash
+   npm install
+   ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. **Start Development Server**:
+   ```bash
+   npm start
+   ```
 
-### `npm run build`
+3. **Build for Production**:
+   ```bash
+   npm run build
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🔧 Configuration
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Backend API
+The app is configured to connect to your FastAPI backend at `http://localhost:8000`. Make sure your backend is running before testing the frontend.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### API Endpoints
+- `GET /daily-topic` - Fetches the current daily topic with the following structure:
+  ```json
+  {
+    "topic": "Solar Energy",
+    "paragraph": "The sun provides light and warmth to our planet. Plants use sunlight to make their own food through photosynthesis. Solar panels can convert sunlight into electricity for our homes and schools.",
+    "grammar_exercise": "the sun is hot plants need water birds can fly",
+    "grammar_answer_key": [
+      "The sun is hot.",
+      "Plants need water.",
+      "Birds can fly."
+    ],
+    "video_url": "https://www.youtube.com/embed/example",
+    "status": "FastAPI is working!"
+  }
+  ```
+  
+  **Note**: The grammar exercise and answer key are generated in a single LLM call to ensure perfect matching between the sentences with errors and their corrections.
 
-### `npm run eject`
+- `POST /send-email` - Sends contact form emails to your Gmail account
+  ```json
+  {
+    "name": "John Doe",
+    "email": "john@example.com",
+    "subject": "Feedback",
+    "message": "Great tool!"
+  }
+  ```
+  
+  **Note**: Requires Gmail SMTP configuration. See `EMAIL_SETUP.md` in the backend directory.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- `GET /video?topic={topic}` - Future endpoint for educational videos
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 🎨 UI Components
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### DailyTopic Component
+The main component that displays:
+- Topic title and header
+- Educational paragraph content
+- Educational video (if available)
+- Grammar exercise with mistakes to find
+- Answer key for teachers (collapsible)
+- Refresh button to get new topics
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Styling
+- Uses Comic Sans MS font for kid-friendly appearance
+- Gradient backgrounds and colorful design
+- Responsive layout for all screen sizes
+- Smooth animations and hover effects
 
-## Learn More
+## 🔌 API Integration
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### useDailyTopic Hook
+Custom React hook that manages:
+- API calls to fetch daily topics
+- Loading states
+- Error handling
+- Data refresh functionality
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### API Service
+Handles all communication with the backend:
+- GET requests to fetch topic data
+- Error handling and logging
+- Future video API integration
 
-### Code Splitting
+## 🚀 Future Enhancements
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+1. **Video Integration**: Embed educational videos from YouTube API
+2. **Interactive Exercises**: Add interactive grammar exercises
+3. **Progress Tracking**: Track student progress and completion
+4. **Offline Support**: Cache topics for offline viewing
+5. **Accessibility**: Improve accessibility features
+6. **Animations**: Add more engaging animations and transitions
 
-### Analyzing the Bundle Size
+## 🐛 Troubleshooting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### CORS Issues
+If you encounter CORS errors, ensure your FastAPI backend has CORS middleware configured:
 
-### Making a Progressive Web App
+```python
+from fastapi.middleware.cors import CORSMiddleware
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+```
 
-### Advanced Configuration
+### API Connection Issues
+- Verify your backend is running on localhost:8000
+- Check the browser console for error messages
+- Ensure the `/daily-topic` endpoint is working
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## 📱 Browser Support
 
-### Deployment
+- Chrome (recommended)
+- Firefox
+- Safari
+- Edge
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## 🎯 Target Audience
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This app is designed specifically for 4th-grade elementary students with:
+- Simple, intuitive navigation
+- Large, readable text
+- Colorful, engaging design
+- Educational content at appropriate reading level
