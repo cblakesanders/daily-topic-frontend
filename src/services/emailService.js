@@ -1,7 +1,4 @@
-// Email service utility for contact form
-// Uses FastAPI backend to send emails via Gmail SMTP
-
-const API_BASE_URL = 'http://localhost:8000';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 
 export const emailService = {
   async sendContactEmail(formData) {
