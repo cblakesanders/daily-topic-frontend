@@ -2,7 +2,7 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  font-family: 'Comic Sans MS', cursive, sans-serif;
+  font-family: 'Nunito', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   min-height: calc(100vh - 120px); /* Account for footer */
   color: #333;
@@ -22,6 +22,7 @@
   font-size: 2.5rem;
   margin: 0 0 10px 0;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  font-weight: 700;
 }
 
 .topic-name {
@@ -216,8 +217,8 @@
   font-size: 1.2rem;
   border-radius: 25px;
   cursor: pointer;
-  font-family: 'Comic Sans MS', cursive, sans-serif;
-  font-weight: bold;
+  font-family: 'Nunito', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 700;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
 }
@@ -289,8 +290,8 @@
   font-size: 1.1rem;
   border-radius: 20px;
   cursor: pointer;
-  font-family: 'Comic Sans MS', cursive, sans-serif;
-  font-weight: bold;
+  font-family: 'Nunito', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 700;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
 }
